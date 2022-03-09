@@ -1,5 +1,6 @@
 package cn.coderap.edu.remote;
 
+import cn.coderap.edu.dto.PromotionAdDTO;
 import cn.coderap.edu.dto.PromotionSpaceDTO;
 import cn.coderap.edu.response.ResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -37,6 +38,29 @@ public interface AdRemoteService {
     @GetMapping("/space/getSpaceById")
     PromotionSpaceDTO getSpaceById(@RequestParam("id") Integer id);
 
+    /**
+     * 获取广告列表
+     * @return
+     */
+    @GetMapping("/getAllAd")
+    List<PromotionAdDTO> getAllAd();
+
+    /**
+     * 新增或编辑广告
+     * @param adDTO
+     * @return
+     */
+    @PostMapping("/saveOrUpdateAd")
+    ResponseDTO saveOrUpdateAd(@RequestBody PromotionAdDTO adDTO);
+
+    /**
+     * 根据id获取单个广告
+     * @param id
+     * @return
+     */
+    @GetMapping("/getAdById")
+    PromotionAdDTO getAdById(@RequestParam("id") Integer id);
+
 
     /*-----------------------------门户后台接口--------------------*/
     /**
@@ -45,6 +69,5 @@ public interface AdRemoteService {
      */
     @GetMapping("/getAdBySpaceKeys")
     List<PromotionSpaceDTO> getAdBySpaceKeys(@RequestParam("spaceKeys") String[] spaceKeys);
-
 
 }

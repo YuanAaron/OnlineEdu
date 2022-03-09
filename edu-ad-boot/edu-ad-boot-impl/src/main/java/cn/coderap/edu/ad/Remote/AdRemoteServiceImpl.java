@@ -66,6 +66,40 @@ public class AdRemoteServiceImpl implements AdRemoteService {
         return ConvertUtil.convert(space, PromotionSpaceDTO.class);
     }
 
+    @RequestMapping("/getAllAd")
+    public List<PromotionAdDTO> getAllAd() {
+        QueryWrapper<PromotionAd> queryWrapper = new QueryWrapper();
+        queryWrapper.orderByDesc("createTime");
+        List<PromotionAd> list = promotionAdService.list(queryWrapper);
+        return ConvertUtil.convertList(list, PromotionAdDTO.class);
+    }
+
+    @RequestMapping("/saveOrUpdateAd")
+    public ResponseDTO saveOrUpdateAd(PromotionAdDTO adDTO) {
+        PromotionAd ad = ConvertUtil.convert(adDTO, PromotionAd.class);
+        if (ad.getId() == null) {
+            //新增
+            ad.setCreateTime(new Date());
+            ad.setUpdateTime(new Date());
+            ad.setStatus(YesOrNoEnum.YES.getType());
+        } else {
+            //修改
+            ad.setUpdateTime(new Date());
+        }
+        try {
+            promotionAdService.saveOrUpdate(ad);
+            return ResponseDTO.success();
+        } catch (Exception e) {
+            return ResponseDTO.ofError(e.getMessage());
+        }
+    }
+
+    @RequestMapping("/getAdById")
+    public PromotionAdDTO getAdById(Integer id) {
+        PromotionAd ad = promotionAdService.getById(id);
+        return ConvertUtil.convert(ad, PromotionAdDTO.class);
+    }
+
     @RequestMapping("/getAdBySpaceKeys")
     public List<PromotionSpaceDTO> getAdBySpaceKeys(String[] spaceKeys) {
         List<PromotionSpaceDTO> spaceDTOList = new ArrayList<>();
