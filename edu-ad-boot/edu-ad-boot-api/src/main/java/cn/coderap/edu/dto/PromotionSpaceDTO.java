@@ -3,6 +3,7 @@ package cn.coderap.edu.dto;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PromotionSpaceDTO {
@@ -20,4 +21,6 @@ public class PromotionSpaceDTO {
     private Date updateTime;
 
     private Integer isDel;
+
+    private List<PromotionAdDTO> adDTOList;
 }
