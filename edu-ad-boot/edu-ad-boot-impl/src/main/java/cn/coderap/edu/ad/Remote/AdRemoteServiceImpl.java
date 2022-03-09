@@ -8,6 +8,7 @@ import cn.coderap.edu.dto.PromotionAdDTO;
 import cn.coderap.edu.dto.PromotionSpaceDTO;
 import cn.coderap.edu.remote.AdRemoteService;
 import cn.coderap.edu.enums.YesOrNoEnum;
+import cn.coderap.edu.response.ResponseDTO;
 import cn.coderap.edu.util.ConvertUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,26 @@ public class AdRemoteServiceImpl implements AdRemoteService {
     public List<PromotionSpaceDTO> getAllSpace() {
         List<PromotionSpace> list = promotionSpaceService.list();
         return ConvertUtil.convertList(list, PromotionSpaceDTO.class);
+    }
+
+    @RequestMapping("/space/saveOrUpdateSpace")
+    public ResponseDTO saveOrUpdateSpace(PromotionSpaceDTO spaceDTO) {
+        PromotionSpace space = ConvertUtil.convert(spaceDTO, PromotionSpace.class);
+        if (space.getId() == null) {
+            //新增
+            space.setCreateTime(new Date());
+            space.setUpdateTime(new Date());
+            space.setIsDel(YesOrNoEnum.NO.getType());
+        } else {
+            //修改
+            space.setUpdateTime(new Date());
+        }
+        try {
+            promotionSpaceService.saveOrUpdate(space);
+            return ResponseDTO.success();
+        } catch (Exception e) {
+            return ResponseDTO.ofError(e.getMessage());
+        }
     }
 
     @RequestMapping("/getAdBySpaceKeys")
