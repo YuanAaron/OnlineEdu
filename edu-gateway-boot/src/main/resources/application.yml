@@ -1,0 +1,30 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: edu-gateway-boot
+  cloud:
+    gateway:
+      routes:
+        - id: edu-front-boot
+          uri: lb://edu-front-boot
+          predicates:
+            - Path=/front/**
+          filters:
+            - StripPrefix=1
+
+        - id: edu-boss-boot
+          uri: lb://edu-boss-boot
+          predicates:
+            - Path=/boss/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
