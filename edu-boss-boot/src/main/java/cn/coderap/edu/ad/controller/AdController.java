@@ -25,4 +25,10 @@ public class AdController {
     public ResponseDTO saveOrUpdateSpace(@RequestBody PromotionSpaceDTO spaceDTO) {
         return adRemoteService.saveOrUpdateSpace(spaceDTO);
     }
+
+    @GetMapping("/space/getSpaceById")
+    public ResponseDTO getSpaceById(@RequestParam("id") Integer id) {
+        PromotionSpaceDTO spaceDTO = adRemoteService.getSpaceById(id);
+        return ResponseDTO.success(spaceDTO);
+    }
 }

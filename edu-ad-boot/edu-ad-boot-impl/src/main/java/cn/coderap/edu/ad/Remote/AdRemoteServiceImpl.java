@@ -10,6 +10,7 @@ import cn.coderap.edu.remote.AdRemoteService;
 import cn.coderap.edu.enums.YesOrNoEnum;
 import cn.coderap.edu.response.ResponseDTO;
 import cn.coderap.edu.util.ConvertUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,9 @@ public class AdRemoteServiceImpl implements AdRemoteService {
 
     @RequestMapping("/space/getAllSpace")
     public List<PromotionSpaceDTO> getAllSpace() {
-        List<PromotionSpace> list = promotionSpaceService.list();
+        QueryWrapper<PromotionSpace> queryWrapper = new QueryWrapper();
+        queryWrapper.orderByDesc("createTime");
+        List<PromotionSpace> list = promotionSpaceService.list(queryWrapper);
         return ConvertUtil.convertList(list, PromotionSpaceDTO.class);
     }
 
@@ -55,6 +58,12 @@ public class AdRemoteServiceImpl implements AdRemoteService {
         } catch (Exception e) {
             return ResponseDTO.ofError(e.getMessage());
         }
+    }
+
+    @RequestMapping("/space/getSpaceById")
+    public PromotionSpaceDTO getSpaceById(Integer id) {
+        PromotionSpace space = promotionSpaceService.getById(id);
+        return ConvertUtil.convert(space, PromotionSpaceDTO.class);
     }
 
     @RequestMapping("/getAdBySpaceKeys")

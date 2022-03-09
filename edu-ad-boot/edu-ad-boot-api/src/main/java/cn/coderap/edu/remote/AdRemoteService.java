@@ -21,8 +21,21 @@ public interface AdRemoteService {
     @GetMapping("/space/getAllSpace")
     List<PromotionSpaceDTO> getAllSpace();
 
+    /**
+     * 新增或编辑广告位
+     * @param spaceDTO
+     * @return
+     */
     @PostMapping("/space/saveOrUpdateSpace")
     ResponseDTO saveOrUpdateSpace(@RequestBody PromotionSpaceDTO spaceDTO);
+
+    /**
+     * 根据id获取单个广告位
+     * @param id
+     * @return
+     */
+    @GetMapping("/space/getSpaceById")
+    PromotionSpaceDTO getSpaceById(@RequestParam("id") Integer id);
 
 
     /*-----------------------------门户后台接口--------------------*/
@@ -32,4 +45,6 @@ public interface AdRemoteService {
      */
     @GetMapping("/getAdBySpaceKeys")
     List<PromotionSpaceDTO> getAdBySpaceKeys(@RequestParam("spaceKeys") String[] spaceKeys);
+
+
 }
