@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author oshacker
  * @since 2022-03-08
  */
-@RestController
-@RequestMapping("/ad/promotion-ad")
-public class PromotionAdController {
-
-}
+//@RestController
+//@RequestMapping("/ad/promotion-ad")
+//public class PromotionAdController {
+//
+//}
