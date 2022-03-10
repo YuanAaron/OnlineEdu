@@ -1,4 +1,4 @@
-package cn.coderap.edu.ad.controller;
+package cn.coderap.edu.boss.controller;
 
 import cn.coderap.edu.dto.PromotionAdDTO;
 import cn.coderap.edu.dto.PromotionSpaceDTO;

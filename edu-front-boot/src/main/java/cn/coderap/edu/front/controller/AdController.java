@@ -1,4 +1,4 @@
-package cn.coderap.edu.ad.controller;
+package cn.coderap.edu.front.controller;
 
 import cn.coderap.edu.dto.PromotionSpaceDTO;
 import cn.coderap.edu.remote.AdRemoteService;

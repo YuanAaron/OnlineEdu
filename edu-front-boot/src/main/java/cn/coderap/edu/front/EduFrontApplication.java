@@ -1,4 +1,4 @@
-package cn.coderap.edu;
+package cn.coderap.edu.front;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
