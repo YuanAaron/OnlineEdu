@@ -31,6 +31,20 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+        <!--报错：
+        Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+        Reason: Failed to determine a suitable driver class
+
+        原因及解决方案：因为edu-user-boot-api使用分页插件引入了mybatis相关依赖，而消费者（edu-boss-boot）会因引入edu-user-boot-api间接引入该依赖，
+        导致需要配置数据源，而消费者是不需要配置的，因此需要在消费者的启动类中增加注解禁止掉驱动数据源
+
+        参考：https://www.cnblogs.com/Chen-lx/p/12213339.html-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.3.2</version>
+        </dependency>
     </dependencies>
 
 </project>
