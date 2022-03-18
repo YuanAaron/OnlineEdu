@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: edu-front-boot
+          uri: lb://edu-front-boot
+          predicates:
+            - Path=/front/**
+          filters:
+            - StripPrefix=1
+
+        - id: edu-boss-boot
+          uri: lb://edu-boss-boot
+          predicates:
+            - Path=/boss/**
+          filters:
+            - StripPrefix=1
+  security:
+    oauth2:
+      jwt:
+        signingKey: 123456
+  redis:
+    host: 127.0.0.1
+    password: Kexin!00
+    port: 6379
+
+
+#网关白名单，无需要签权url
+gate:
+  ignore:
+    authentication:
+      startWith: /oauth,/open,/user/login,/course,/ad,/pay,/doc.html,/webjars,/pay/wxCallback,/pay/zfbCallback,/user/vfcode,/user/refresh_token,/weixin,/comment,/permission/getUserPermissions
